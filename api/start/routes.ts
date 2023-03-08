@@ -41,6 +41,14 @@ Route.get('/', async () => {
   })
 })
 
+Route.post('/document/update', async ({ request }) => {
+  const { agentId, documentId, documentStatus } = request.body()
+
+  await DocumentReview.query()
+    .where('documentId', documentId)
+    .update({ agentId: agentId, documentStatus: documentStatus })
+})
+
 Route.group(() => {
   Route.post('authorizations', 'AuthorizationsController.process')
 })
